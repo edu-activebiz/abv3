@@ -1,0 +1,30 @@
+﻿@* @model IEnumerable<FMCGWebApplication.Models.ProfileViewModel> *@
+@model ProfileViewModel
+
+<h2>User Profile</h2>
+<div class="card">
+    <div class="card-body">
+        <p><strong>Username:</strong> @Model.Username</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Role:</strong> @Model.Role</p>
+        <p><strong>Token:</strong> @Model.Token</p>
+
+        @* @if (!string.IsNullOrEmpty(Model.SelectedCompany))
+        {
+            <p><strong>Selected Company:</strong> @Model.SelectedCompany</p>
+        }
+        else
+        {
+            <p><strong>No company selected.</strong></p>
+        } *@
+
+        @if (!string.IsNullOrEmpty(Model.SelectedCompanyName))
+        {
+            <p><strong>Selected CompanyName:</strong> @Model.SelectedCompanyName </p>
+        }
+        else
+        {
+            <p><strong>No company selected.</strong></p>
+        }
+    </div>
+</div>

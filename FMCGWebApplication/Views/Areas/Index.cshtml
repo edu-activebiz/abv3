@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Area>
+@{
+    ViewData["Title"] = "Manage Areas";
+    int totalItems = (int)ViewData["TotalItems"];
+    int pageSize = (int)ViewData["PageSize"];
+    int currentPage = (int)ViewData["CurrentPage"];
+}
+
+<h2>Manage Areas</h2>
+
+<!-- Align button to the right with an emoji -->
+<div class="d-flex justify-content-end mb-3">
+    <a class="btn btn-primary" asp-action="Create">➕ Add New Area</a>
+</div>
+<!-- Search and Filter Form -->
+<form method="get" class="mt-3">
+    <div class="row align-items-center">
+    <!-- Area Group Filter -->
+    <div class="col-md-3">
+        <select name="areaGroupFilter" class="form-control">
+            <option value="">All Groups</option>
+            @foreach (var group in ViewBag.AreaGroups as List<string>)
+            {
+                <option value="@group" selected="@(ViewBag.CurrentAreaGroup == group ? "selected" : null)">@group</option>
+            }
+        </select>
+    </div>
+
+    <!-- Search Box -->
+    <div class="col-md-3">
+        <input type="text" name="search" class="form-control"
+               placeholder="Search by Area Name"
+               value="@Context.Request.Query["searchString"]">
+    </div>
+    <!-- Search Button (Magnifier Emoji) -->
+    <div class="col-md-1">
+        <button type="submit" class="btn btn-primary">
+            🔍
+        </button>
+    </div>
+    </div>
+   @*  <input type="text" name="search" placeholder="Search by Name or Code" class="form-control" />
+    <select name="filter" class="form-control">
+        <option value="">All Groups</option>
+        <option value="Group1">Group1</option>
+        <option value="Group2">Group2</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Search</button> *@
+</form>
+
+<!-- Table with Sorting -->
+<table class="table">
+    <thead>
+        <tr>
+            <th><a asp-route-sortOrder="@ViewData["NameSortParam"]">Area Name</a></th>
+            <th><a asp-route-sortOrder="@ViewData["CodeSortParam"]">Area Code</a></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var area in Model)
+        {
+            <tr>
+                <td>@area.AreaName</td>
+                <td>@area.AreaCode</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-companyCode="@area.CompanyCode" asp-route-areaCode="@area.AreaCode">Edit</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-companyCode="@area.CompanyCode" asp-route-areaCode="@area.AreaCode">Delete</a>
+                </td>
+                @* <td>
+                    <a asp-action="Edit" asp-route-companyCode="@area.CompanyCode" asp-route-areacode="@area.AreaCode">Edit</a> |
+                    <a asp-action="Delete" asp-route-companyCode="@area.CompanyCode" asp-route-areacode="@area.AreaCode">Delete</a>
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination -->
+<ul class="pagination">
+    @for (int i = 1; i <= (totalItems + pageSize - 1) / pageSize; i++)
+    {
+        <li class="page-item @(i == currentPage ? "active" : "")">
+            <a class="page-link" asp-route-page="@i">@i</a>
+        </li>
+    }
+</ul>

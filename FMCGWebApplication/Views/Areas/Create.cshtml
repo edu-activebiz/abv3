@@ -1,0 +1,103 @@
+﻿@using  FMCGWebApplication.Models 
+@model Area
+
+<h2>Add New Area</h2>
+<form id="myForm" asp-action="Create" onsubmit="return formatBeforeSubmit()">
+   @*  <div class="form-group">
+        <label>Company Code</label>
+        <input asp-for="CompanyCode" class="form-control" required />
+    </div> *@
+    <div class="form-group">
+        <label>Area Code</label>
+        <input asp-for="AreaCode" id="areaCodeInput" class="form-control" required />
+        <span id="formattedCodeDisplay"></span>
+       @*  <input asp-for="AreaCode" class="form-control" value="@UtilityHelper.CodCnvZ(Model?.AreaCode ?? "", 6)" required /> *@
+    </div>
+    <div class="form-group">
+        <label>Area Name</label>
+        <input asp-for="AreaName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="areaGroup">Area Group</label>
+        <select asp-for="AreaGroup" asp-items="ViewBag.AreaGroups" class="form-control">
+            <option value="">-- Select an Area Group --</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>
+<script>
+    document.getElementById("myForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent immediate submission
+
+        var inputField = document.getElementById("areaCodeInput");
+        var inputValue = inputField.value;
+
+        try {
+            let response = await fetch(`/UtilityHelper/CodCnvZ?input=${inputValue}`);
+            let data = await response.json();
+
+            inputField.value = data.formattedCode;
+            this.submit(); // Submit after formatting
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to format input.");
+        }
+    });
+</script>
+
+
+@* <script>
+    async function formatBeforeSubmit() {
+
+        document.getElementById("myForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent immediate submission
+
+        var inputField = document.getElementById("areaCodeInput");
+        var inputValue = inputField.value;
+
+        try {
+            let response = await fetch(`/UtilityHelper/CodCnvZ?input=${inputValue}`);
+            let data = await response.json();
+
+            inputField.value = data.formattedCode;
+            return true; // Submit the form
+        } catch (error) {
+            console.error("Error:", error);
+            return false; // Prevent form submission on error
+        }
+    }
+</script> *@
+
+@* <script>
+    function formatAreaCode() {
+        var inputValue = document.getElementById("areaCodeInput").value;
+
+        fetch(`/api/Utility/ConvertCode?input=${inputValue}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("formattedCodeDisplay").innerText = data.formattedCode;
+                document.getElementById("areaCodeInput").value = data.formattedCode;
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script> *@
+
+@* <script>
+    function formatAreaCode() {
+        var inputValue = document.getElementById("areaCodeInput").value;
+        fetch(`/api/Utility/ConvertCode?input=${inputValue}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("formattedCodeDisplay").innerText = data.formattedCode;
+                document.getElementById("areaCodeInput").value = data.formattedCode;
+            })
+            .catch(error => console.error("Error:", error));
+    }
+</script> *@
+@* <script>
+    
+    var  inputvalue = 
+    var formattedCode = "@UtilityHelper.CodCnvZ(inputvalue, 6);
+    console.log("Formatted Code:", formattedCode);
+</script> *@

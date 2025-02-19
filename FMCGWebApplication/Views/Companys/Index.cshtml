@@ -1,0 +1,91 @@
+﻿@model IEnumerable<FMCGWebApplication.Models.Company>
+
+@{
+    ViewData["Title"] = "List of Companies";
+}
+
+<h2>Company List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Select</th>
+            <th>Company Code</th>
+            <th>Company Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var company in Model)
+        {
+            <tr>
+                <td>
+                    <input type="radio" name="selectedCompany" value="@company.CompanyCode"
+                           onclick="saveCompanyToCookie('@company.CompanyCode', '@company.CompanyName')" />
+                </td>
+                <td>@company.CompanyCode</td>
+                <td>@company.CompanyName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@company.CompanyCode" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@company.CompanyCode" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@company.CompanyCode" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    // Function to save selected company in a cookie
+    function saveCompanyToCookie(companyCode, companyName) {
+
+        console.log("Company Code:", companyCode);
+        console.log("Company Name:", companyName);
+
+        debugger; // Execution will pause here if DevTools is open
+        // document.cookie = "SelectedCompany=" + companyCode + "; path=/";
+        // document.cookie = "SelectedCompanyName=" + companyName + "; path=/";
+
+        // Encode company name to handle spaces properly
+        document.cookie = "SelectedCompany=" + encodeURIComponent(companyCode) + "; path=/";
+        document.cookie = "SelectedCompanyName=" + encodeURIComponent(companyName) + "; path=/";
+
+
+        alert("Selected Company Data: " + companyName + " (" + companyCode + ") saved in cookies.");
+        // Redirect to Home page
+        window.location.href = "/Home/Index"; // Change if your home controller or action is different
+    }
+
+    // Function to preselect the previously chosen company
+    function preselectCompany() {
+        let cookies = document.cookie.split("; ");
+        let selectedCompany = "";
+        let selectedCompanyName = "";
+        cookies.forEach(function (cookie) {
+            let parts = cookie.split("=");
+            if (parts[0] === "SelectedCompany") {
+                selectedCompany = parts[1];
+           
+            // } else if (parts[0] === "SelectedCompanyName") {
+            //     selectedCompanyName = decodeURIComponent(parts[1]);
+             }
+        });
+
+        console.log("Retrieved Company:", selectedCompany, selectedCompanyName);
+
+        if (selectedCompany) {
+            let radios = document.getElementsByName("selectedCompany");
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].value === selectedCompany) {
+                    radios[i].checked = true;
+                }
+            }
+        }
+    }
+
+   
+
+    // Call function on page load
+    window.onload = preselectCompany;
+    
+</script>

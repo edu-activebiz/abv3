@@ -1,0 +1,15 @@
+﻿@model Area
+
+<h2>Delete Area</h2>
+<p>Are you sure you want to delete this?</p>
+<ul>
+    <li>Company Code: @Model.CompanyCode</li>
+    <li>Area Code: @Model.AreaCode</li>
+    <li>Area Name: @Model.AreaName</li>
+</ul>
+<form asp-action="DeleteConfirmed">
+    <input type="hidden" asp-for="CompanyCode" />
+    <input type="hidden" asp-for="AreaCode" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>
