@@ -1,0 +1,85 @@
+﻿@model IEnumerable<FMCGWebApplication.Models.Accounts>
+
+@{
+    ViewData["Title"] = "Accounts";
+
+}
+
+<h2>Accounts</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<!-- Search Form -->
+<form asp-action="Index" method="get" class="mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search by Account Code or Name" value="@Context.Request.Query["search"]" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+
+<!-- Groups Table -->
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["CodeSortParam"]">Account Code</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">Account Name</a>
+            </th>
+
+         
+            <th>Account Type</th>
+            <th>Balance Transfer To</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AcCode</td>
+                <td>@item.AcName</td>
+                <td>@item.AcType</td>
+                <td>@(item.PTG == "T" ? "Trading" : item.PTG == "P" ? "P&L Account" : "Balance Sheet")</td>
+
+                 <td>
+                    <a asp-action="Edit" asp-route-companyCode="@item.CompanyCode" asp-route-acCode="@item.AcCode" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CompanyCode" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-companyCode="@item.CompanyCode" asp-route-acCode="@item.>" class="btn btn-danger">Delete</a>
+                </td>
+
+               @*  <td>
+                    <a asp-action="Edit" asp-route-companyCode="@item.CompanyCode" asp-route-acCode="@item.AcCode">Edit</a> |
+                    <a asp-action="Details" asp-route-companyCode="@item.CompanyCode" asp-route-acCode="@item.AcCode">Details</a> |
+                    <a asp-action="Delete" asp-route-companyCode="@item.CompanyCode" asp-route-acCode="@item.AcCode">Delete</a>
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Pagination -->
+@if (ViewData["TotalItems"] != null)
+{
+    var totalItems = (int)ViewData["TotalItems"];
+    var pageSize = (int)ViewData["PageSize"];
+    var currentPage = (int)ViewData["CurrentPage"];
+    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+    <nav>
+        <ul class="pagination">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}

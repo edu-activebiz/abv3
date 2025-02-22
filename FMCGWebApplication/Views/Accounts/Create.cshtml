@@ -1,0 +1,272 @@
+﻿@model FMCGWebApplication.Models.Accounts
+
+@{
+    ViewData["Title"] = "Create Account";
+}
+
+<h2>Create Account</h2>
+<div class="container" style="max-height: 500px; overflow-y: auto;">
+    <form asp-action="Create" method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AcCode"></label>
+                    <input asp-for="AcCode" class="form-control" required />
+                    <span asp-validation-for="AcCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AcName"></label>
+                    <input asp-for="AcName" class="form-control" required />
+                    <span asp-validation-for="AcName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="GroupCode"></label>
+                <select asp-for="GroupCode" class="form-control" asp-items="ViewBag.GroupCode">
+                    <option value="">-- Select Group --</option>
+                </select>
+                <span asp-validation-for="GroupCode" class="text-danger"></span>
+            </div>
+            </div>
+            @* <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="GroupCode"></label>
+                    <input asp-for="GroupCode" class="form-control" />
+                    <span asp-validation-for="GroupCode" class="text-danger"></span>
+                </div>
+            </div> *@
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AcType"></label>
+                    <select asp-for="AcType" class="form-control" required>
+                        <option value="">-- Select Account Type --</option>
+                        <option value="G">General</option>
+                        <option value="C">Customer</option>
+                        <option value="S">Supplier</option>
+                        <option value="H">Head</option>
+                        <option value="B">Broker/SalesMan</option>
+                    </select>
+                    <span asp-validation-for="AcType" class="text-danger"></span>
+                </div>
+                @* <div class="form-group">
+                    <label asp-for="AcType"></label>
+                    <input asp-for="AcType" class="form-control" required />
+                    <span asp-validation-for="AcType" class="text-danger"></span>
+                </div> *@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="StateName"></label>
+                    <select asp-for="StateName" class="form-control" asp-items="ViewBag.StateName">
+                        <option value="">-- Select State --</option>
+                    </select>
+                    <span asp-validation-for="StateName" class="text-danger"></span>
+                </div>
+            </div>
+       
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ARAPStatus"></label>
+                    <select asp-for="ARAPStatus" class="form-control">
+                        <option value="0">None</option>
+                        <option value="1">Receivables</option>
+                        <option value="2">Payables</option>
+                    </select>
+                    <span asp-validation-for="ARAPStatus" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        @* <div class="form-group">
+            <label asp-for="StateName"></label>
+            <input asp-for="StateName" class="form-control" />
+            <span asp-validation-for="StateName" class="text-danger"></span>
+        </div> *@
+
+        <div class="form-group">
+            <label>Balance Transfer To</label><br />
+            <div class="form-check form-check-inline">
+                <input type="radio" asp-for="PTG" value="T" class="form-check-input" />
+                <label class="form-check-label">Trading</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" asp-for="PTG" value="P" class="form-check-input" />
+                <label class="form-check-label">P&L</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" asp-for="PTG" value="B" class="form-check-input" />
+                <label class="form-check-label">Balance Sheet</label>
+            </div>
+            <span asp-validation-for="PTG" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CreditAbbrv"></label>
+                    <input asp-for="CreditAbbrv" class="form-control" />
+                    <span asp-validation-for="CreditAbbrv" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="DebitAbbrv"></label>
+                    <input asp-for="DebitAbbrv" class="form-control" />
+                    <span asp-validation-for="DebitAbbrv" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address"></label>
+            <textarea asp-for="Address" class="form-control"></textarea>
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Phone_Off"></label>
+                    <input asp-for="Phone_Off" class="form-control" />
+                    <span asp-validation-for="Phone_Off" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Mobil"></label>
+                    <input asp-for="Mobil" class="form-control" />
+                    <span asp-validation-for="Mobil" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="EMail"></label>
+                    <input asp-for="EMail" type="email" class="form-control" />
+                    <span asp-validation-for="EMail" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CrAmount"></label>
+                    <input asp-for="CrAmount" type="number" step="0.01" class="form-control" />
+                    <span asp-validation-for="CrAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="form-check">
+                    <input type="checkbox" asp-for="OGS" class="form-check-input" />
+                    <label class="form-check-label" asp-for="OGS">Opening Goods Stock</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LST_No"></label>
+                    <input asp-for="LST_No" class="form-control" />
+                    <span asp-validation-for="LST_No" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CST_No"></label>
+                    <input asp-for="CST_No" class="form-control" />
+                    <span asp-validation-for="CST_No" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="PANNo"></label>
+                    <input asp-for="PANNo" class="form-control" />
+                    <span asp-validation-for="PANNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LicNo"></label>
+                    <input asp-for="LicNo" class="form-control" />
+                    <span asp-validation-for="LicNo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="BillType"></label>
+                    <input asp-for="BillType" class="form-control" />
+                    <span asp-validation-for="BillType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="LSTTINNO"></label>
+                    <input asp-for="LSTTINNO" class="form-control" />
+                    <span asp-validation-for="LSTTINNO" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CSTTINNO"></label>
+                    <input asp-for="CSTTINNO" class="form-control" />
+                    <span asp-validation-for="CSTTINNO" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="GSTNO"></label>
+                    <input asp-for="GSTNO" class="form-control" />
+                    <span asp-validation-for="GSTNO" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="AdharCardNo"></label>
+                    <input asp-for="AdharCardNo" class="form-control" />
+                    <span asp-validation-for="AdharCardNo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -10,13 +10,16 @@ namespace FMCGWebApplication.Data
             : base(options)
         {
         }
-       
-       
+
+
         public DbSet<Company> TISCompanyMsts { get; set; }
 
         public DbSet<Area> TISAreaMsts { get; set; }
 
         public DbSet<Groups> TISGroupMsts { get; set; }
+
+        public DbSet<States> TISStates { get; set; }
+        public DbSet<Accounts> TISAccountMsts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +31,7 @@ namespace FMCGWebApplication.Data
             //   .HasKey(a => new { a.AreaCode });
 
             modelBuilder.Entity<Area>()
-    .HasKey(a => new { a.AreaCode, a.CompanyCode }); // ✅ Composite Primary Key
+        .HasKey(a => new { a.CompanyCode, a.AreaCode }); // ✅ Composite Primary Key
                                                      //modelBuilder.Entity<Area>()
                                                      //     //.HasKey(a => new { a.CompanyCode, a.AreaCode });
                                                      //     .HasOne(a => a.Companys)
@@ -38,7 +41,15 @@ namespace FMCGWebApplication.Data
             modelBuilder.Entity<Groups>()
             .HasKey(g => new { g.CompanyCode, g.GroupCode });
 
-            // base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<States>()
+                .HasKey(a => new { a.StateName });
+
+            modelBuilder.Entity<Accounts>()
+            .HasKey(a => new { a.CompanyCode, a.GroupCode, a.AcCode  });
+            
+
+
+            base.OnModelCreating(modelBuilder);
         }
 
         

@@ -1,0 +1,78 @@
+﻿@model FMCGWebApplication.Models.Groups
+
+@{
+    ViewData["Title"] = "Create Group";
+}
+
+<h2>Create New Group</h2>
+
+<form asp-action="Create" method="post" id="myForm">
+    <div class="form-group">
+        <label asp-for="GroupCode"></label>
+        <input asp-for="GroupCode" id="areaCodeInput" class="form-control" required />      
+        <span id="formattedCodeDisplay" asp-validation-for="GroupCode" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="GroupName"></label>
+        <input asp-for="GroupName" class="form-control" required />
+        <span asp-validation-for="GroupName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CrSeq"></label>
+        <input asp-for="CrSeq" class="form-control" type="number" />
+        <span asp-validation-for="CrSeq" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DrSeq"></label>
+        <input asp-for="DrSeq" class="form-control" type="number" />
+        <span asp-validation-for="DrSeq" class="text-danger"></span>
+    </div>
+
+    <!-- Balance Transfer To - Radio Buttons -->
+    <div class="form-group">
+        <label>Balance Transfer To:</label>
+        <div>
+            <input type="radio" asp-for="PTG" value="T" /> Trading Account
+            <input type="radio" asp-for="PTG" value="P" /> P & L Account
+            <input type="radio" asp-for="PTG" value="G" /> Balance Sheet
+        </div>
+        <span asp-validation-for="PTG" class="text-danger"></span>
+    </div>
+
+    @* <div class="form-group">
+        <label asp-for="PTG"></label>
+        <input asp-for="PTG" class="form-control" maxlength="1" />
+        <span asp-validation-for="PTG" class="text-danger"></span>
+    </div> *@
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+<script>
+    document.getElementById("myForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent immediate submission
+
+        var inputField = document.getElementById("areaCodeInput");
+        var inputValue = inputField.value;
+
+        try {
+            let response = await fetch(`/UtilityHelper/CodCnvZ?input=${inputValue}`);
+            let data = await response.json();
+
+            inputField.value = data.formattedCode;
+            this.submit(); // Submit after formatting
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Failed to format input.");
+        }
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

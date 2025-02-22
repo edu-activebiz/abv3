@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FMCGWebApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c933638b6b42edbfae8b2b0b4d47db299731906a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("FMCGWebApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FMCGWebApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

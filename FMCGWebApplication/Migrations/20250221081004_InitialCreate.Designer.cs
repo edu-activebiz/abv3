@@ -4,6 +4,7 @@ using FMCGWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FMCGWebApplication.Migrations
 {
     [DbContext(typeof(SystemDbContext))]
-    partial class SystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250221081004_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -356,23 +359,6 @@ namespace FMCGWebApplication.Migrations
                     b.HasKey("CompanyCode", "GroupCode");
 
                     b.ToTable("TISGroupMst", "dbo");
-                });
-
-            modelBuilder.Entity("FMCGWebApplication.Models.States", b =>
-                {
-                    b.Property<string>("StateName")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<short>("CountryId")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("StateName");
-
-                    b.ToTable("TISState", "dbo");
                 });
 #pragma warning restore 612, 618
         }

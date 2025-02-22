@@ -1,0 +1,56 @@
+﻿@model FMCGWebApplication.Models.Groups
+
+@{
+    ViewData["Title"] = "Edit Group";
+}
+
+<h2>Edit Group</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="CompanyCode" />
+    <input type="hidden" asp-for="GroupCode" />
+
+    <div class="form-group">
+        <label asp-for="GroupName"></label>
+        <input asp-for="GroupName" class="form-control" required />
+        <span asp-validation-for="GroupName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CrSeq"></label>
+        <input asp-for="CrSeq" class="form-control" type="number" />
+        <span asp-validation-for="CrSeq" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DrSeq"></label>
+        <input asp-for="DrSeq" class="form-control" type="number" />
+        <span asp-validation-for="DrSeq" class="text-danger"></span>
+    </div>
+
+    <!-- Balance Transfer To - Radio Buttons -->
+    <div class="form-group">
+        <label>Balance Transfer To:</label>
+        <div>
+            <input type="radio" asp-for="PTG" value="T" /> Trading Account
+            <input type="radio" asp-for="PTG" value="P" /> P & L Account
+            <input type="radio" asp-for="PTG" value="G" /> Balance Sheet
+        </div>
+        <span asp-validation-for="PTG" class="text-danger"></span>
+    </div>
+
+   @*  <div class="form-group">
+        <label asp-for="PTG"></label>
+        <input asp-for="PTG" class="form-control" maxlength="1" />
+        <span asp-validation-for="PTG" class="text-danger"></span>
+    </div> *@
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

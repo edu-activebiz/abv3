@@ -43,14 +43,14 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 //Ensure database migrations are applied
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-//    dbContext.Database.Migrate(); // Apply pending migrations
+////using (var scope = app.Services.CreateScope())
+////{
+////    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+////    dbContext.Database.Migrate(); // Apply pending migrations
 
-//    // Call SeedData
-//    await SeedData.InitializeAsync(scope.ServiceProvider);
-//}
+////    //    // Call SeedData
+////    //    await SeedData.InitializeAsync(scope.ServiceProvider);
+////}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
